@@ -1,25 +1,21 @@
 const express = require('express')
+const { getContacts,
+  getContact,
+  createContact,
+  deleteContact,refreshContact } = require('../../controllers/contactsControllers');
+
+const {validateBody, addContactValidationSchema} = require('../../validate/validator.js')
 
 const router = express.Router()
 
-router.get('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.get("/", getContacts)
 
-router.get('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.get("/:id", getContact)
 
-router.post('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.post("/",validateBody(addContactValidationSchema),createContact)
 
-router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.delete("/:id", deleteContact)
 
-router.put('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.put("/:id",validateBody(addContactValidationSchema) , refreshContact)
 
 module.exports = router
